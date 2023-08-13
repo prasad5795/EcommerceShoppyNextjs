@@ -38,7 +38,7 @@ export async function postData(url = '', data = {}) {
 
     const res = await response.json();
     return { res, status: response.status };
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(`Failed to perform POST request: ${error.message}`);
   }
 }

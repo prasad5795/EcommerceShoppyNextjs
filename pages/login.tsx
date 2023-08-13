@@ -6,6 +6,11 @@ import Layout from '../layouts/Main';
 import { server } from '../utils/server';
 import { postData } from '../utils/services';
 
+type LoginMail = {
+  email: string;
+  password: string;
+};
+
 /**
  * LoginPage component represents a login page where users can log in.
  * It uses the Layout component to provide a consistent layout structure.
@@ -20,7 +25,7 @@ const LoginPage = () => {
    * Function to handle the form submission when the user tries to log in.
    * @param data - The login form data containing email and password.
    */
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: LoginMail) => {
     const { res, status } = await postData(`${server}/api/login`, {
       email: data.email,
       password: data.password,

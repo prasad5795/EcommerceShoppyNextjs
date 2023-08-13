@@ -19,7 +19,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
       // Respond with the fetched product data
       res.status(200).json(product);
     })
-    .catch((error) => {
+    .catch((_error) => {
       // Respond with an error if the fetch operation fails
       res.status(500).json({ error: 'Failed to fetch product data' });
     });
