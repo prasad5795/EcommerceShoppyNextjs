@@ -33,7 +33,7 @@ const makeStore = ({ isServer }: { isServer: boolean }) => {
     // If it's on the client side, create a store with state persistence
     const persistConfig = {
       key: "shoppingcart",
-      whitelist: ["cart"], // Only 'cart' will be persisted, add other reducers if needed
+      whitelist: ["cart"], // Only 'cart' will be persisted
       storage, // Use a storage mechanism (e.g., localStorage) for persisting state
     };
 

@@ -9,3 +9,7 @@ This repo contains a Ecommerce responsive website made with Next.js, Redux, Redu
 - Cart page: /cart
 - Login page: /login
 - 404 page: /page-not-found
+
+## Creds to access website
+email - johndoe@mail.com
+password - ecommerce
