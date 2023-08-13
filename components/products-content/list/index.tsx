@@ -1,7 +1,7 @@
 import useSwr from 'swr';
 import ProductItem from '../../product-item';
 import ProductsLoading from './loading';
-import { ProductTypeList } from 'types';
+import { ProductType } from 'types';
 
 /**
  * Displays the content section for the products, including a list of products fetched from an API.
@@ -25,7 +25,7 @@ const ProductsContent = () => {
 
       {data && (
         <section className="products-list">
-          {data.map((item: ProductTypeList) => (
+          {data.map((item: ProductType) => (
             <ProductItem
               id={item.id}
               title={item.title}

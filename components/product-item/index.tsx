@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import { ProductTypeList } from 'types';
+import { ProductType } from 'types';
 
 /**
  * Props for the ProductItem component.
  */
-type ProductItemProps = ProductTypeList;
+type ProductItemProps = ProductType;
 
 /**
  * Displays a single product item with image, title, and price.

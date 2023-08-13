@@ -1,22 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-/**
- * Generates a random token of specified length.
- *
- * @param {number} length - The length of the token to generate.
- * @returns {string} A random token.
- */
-function makeToken(length = 10): string {
-  let result = '';
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  let counter = 0;
-  while (counter < length) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    counter += 1;
-  }
-  return result;
-}
+import { makeToken } from 'utils/services';
 
 /**
  * Handles user login and token generation for white-listed email addresses.

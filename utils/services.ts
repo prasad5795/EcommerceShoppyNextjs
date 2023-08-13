@@ -25,11 +25,11 @@ export async function postData(url = '', data = {}) {
       cache: 'no-cache',
       credentials: 'same-origin',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
 
     if (!response.ok) {
@@ -41,4 +41,23 @@ export async function postData(url = '', data = {}) {
   } catch (error: any) {
     throw new Error(`Failed to perform POST request: ${error.message}`);
   }
+}
+
+/**
+ * Generates a random token of specified length.
+ *
+ * @param {number} length - The length of the token to generate.
+ * @returns {string} A random token.
+ */
+export function makeToken(length = 10): string {
+  let result = '';
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  let counter = 0;
+  while (counter < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+  }
+  return result;
 }
