@@ -24,10 +24,7 @@ const Header = ({ isErrorPage }: HeaderProps) => {
   const router = useRouter();
   const { cartItems } = useSelector((state: RootState) => state.cart);
   const arrayPaths = ['/'];
-  const isUserLoggedIn =
-    typeof window !== 'undefined' &&
-    sessionStorage &&
-    sessionStorage.getItem('auth_token');
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
   const [onTop, setOnTop] = useState(
     !arrayPaths.includes(router.pathname) || isErrorPage ? false : true
   );
@@ -52,6 +49,11 @@ const Header = ({ isErrorPage }: HeaderProps) => {
     window.onscroll = function () {
       headerClass();
     };
+    setIsUserLoggedIn(
+      typeof window !== 'undefined' &&
+        sessionStorage &&
+        Boolean(sessionStorage.getItem('auth_token'))
+    );
   }, []);
 
   useEffect(() => {
@@ -93,9 +95,7 @@ const Header = ({ isErrorPage }: HeaderProps) => {
               </button>
             </Link>
           )}
-          {isUserLoggedIn && (
-            <button onClick={logout}>Logout</button>
-          )}
+          {isUserLoggedIn && <button onClick={logout}>Logout</button>}
         </div>
       </div>
     </header>
