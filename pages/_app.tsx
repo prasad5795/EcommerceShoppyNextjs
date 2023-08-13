@@ -1,17 +1,26 @@
 import { Fragment } from 'react';
 import { wrapper } from '../store';
 
-// types
+// Import global styles
+import 'react-rater/lib/react-rater.css'; // Import styles for the rating component
+import '../assets/css/styles.scss'; // Import your custom global styles
+
+// Import types
 import type { AppProps } from 'next/app';
 
-// global styles
-import 'react-rater/lib/react-rater.css';
-import '../assets/css/styles.scss';
-
+/**
+ * MyApp component is the main entry point for your Next.js app.
+ * It wraps the provided Component with Redux state using the wrapper from the store.
+ */
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <Fragment>
+    {/* Render the provided component with its props */}
     <Component {...pageProps} />
   </Fragment>
 );
 
+/**
+ * Export MyApp component wrapped with Redux store using the wrapper.
+ * This ensures that Redux state is available to all components in your app.
+ */
 export default wrapper.withRedux(MyApp);

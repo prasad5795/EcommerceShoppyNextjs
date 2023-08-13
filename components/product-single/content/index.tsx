@@ -6,15 +6,27 @@ import Description from '../description';
 import Rater from 'react-rater';
 import Toast from 'light-toast';
 
-type ProductContent = {
+/**
+ * Props for the Content component.
+ */
+type ContentProps = {
+  /** The product data for which the content is displayed. */
   product: ProductType;
 };
 
-const Content = ({ product }: ProductContent) => {
-  console.log('🚀 ~ file: index.tsx:12 ~ Content ~ product:', product);
+/**
+ * Displays the content section for a product, including its details, description, and add-to-cart functionality.
+ *
+ * @param {ContentProps} props - The props for the component.
+ * @returns {JSX.Element} The Content component.
+ */
+const Content = ({ product }: ContentProps) => {
   const dispatch = useDispatch();
   const [count, setCount] = useState<number>(1);
 
+  /**
+   * Adds the product to the cart with the selected quantity.
+   */
   const addToCart = () => {
     const productToSave: ProductStoreType = {
       id: product.id,
@@ -28,7 +40,9 @@ const Content = ({ product }: ProductContent) => {
       count,
       product: productToSave,
     };
-    Toast.success("Added to Cart", 1000);
+
+    // Display a success toast when the product is added to the cart.
+    Toast.success('Added to Cart', 1000);
 
     dispatch(addProduct(productStore));
   };
@@ -37,7 +51,8 @@ const Content = ({ product }: ProductContent) => {
     <section className="product-content">
       <div className="product-content__intro">
         <h5 className="product__id">
-          Product ID:<br></br>
+          Product ID:
+          <br />
           {product.id}
         </h5>
         <span className="product-on-sale">Sale</span>
@@ -47,12 +62,14 @@ const Content = ({ product }: ProductContent) => {
           <h4>${product.price}</h4>
         </div>
         <div style={{ marginTop: '1%' }}>
+          {/* Display product rating using the Rater component. */}
           <Rater rating={product.rating?.rate} total={5} interactive={false} />
         </div>
         <div style={{ marginTop: '1%' }}>{product.rating?.count} ratings</div>
       </div>
 
       <div className="product-content__filters">
+        {/* Display the product description using the Description component. */}
         <Description product={product} />
         <div className="product-filter-item">
           <h5>Quantity:</h5>
@@ -89,4 +106,5 @@ const Content = ({ product }: ProductContent) => {
   );
 };
 
+// Export the Content component as the default export.
 export default Content;

@@ -1,5 +1,10 @@
 import Logo from '../../assets/icons/logo';
 
+/**
+ * Displays the footer section of the Ecommerce Shoppy website.
+ *
+ * @returns {JSX.Element} The Footer component.
+ */
 const Footer = () => {
   return (
     <footer className="site-footer">
@@ -7,13 +12,16 @@ const Footer = () => {
         <div className="site-footer__top">
           <div className="site-footer__description">
             <h6>
+              {/* Display the Logo component alongside the site name. */}
               <Logo /> Ecommerce Shoppy
             </h6>
             <p>
+              {/* Provide a brief description of the website. */}
               Experience Shopping Bliss: Unveiling the Ultimate Selection of
               Irresistible Finds for Every Desire, Right at Your Fingertips!
             </p>
             <ul className="site-footer__social-networks">
+              {/* Display links to various social media profiles. */}
               <li>
                 <a href="#">
                   <i className="icon-facebook"></i>
@@ -43,6 +51,7 @@ const Footer = () => {
           </div>
 
           <div className="site-footer__links">
+            {/* Display links to various sections of information. */}
             <ul>
               <li>Shopping online</li>
               <li>
@@ -73,7 +82,7 @@ const Footer = () => {
                 <a href="#">Newsletter</a>
               </li>
               <li>
-                <a href="#">Bacome a member</a>
+                <a href="#">Become a member</a>
               </li>
               <li>
                 <a href="#">Site feedback</a>
@@ -95,4 +104,5 @@ const Footer = () => {
   );
 };
 
+// Export the Footer component as the default export.
 export default Footer;

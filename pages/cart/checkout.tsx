@@ -6,14 +6,21 @@ import { RootState } from 'store';
 import Footer from 'components/footer';
 import Link from 'next/link';
 
+/**
+ * CheckoutPage component responsible for rendering the checkout process.
+ * Displays shipping information, payment methods, delivery options, and cart summary.
+ */
 const CheckoutPage = () => {
+  // Select total price from Redux store
   const priceTotal = useSelector((state: RootState) => {
     const cartItems = state.cart.cartItems;
     let totalPrice = 0;
     if (cartItems.length > 0) {
-      cartItems.map((item) => (totalPrice += item.price * item.count));
+      // Calculate total price based on cart items and quantities
+      cartItems.forEach((item) => {
+        totalPrice += item.price * item.count;
+      });
     }
-
     return totalPrice;
   });
 
@@ -23,21 +30,19 @@ const CheckoutPage = () => {
         <div className="container">
           <div className="cart__intro">
             <h3 className="cart__title">Shipping and Payment</h3>
+            {/* Display checkout step status */}
             <CheckoutStatus step="checkout" />
           </div>
 
           <div className="checkout-content">
             <div className="checkout__col-6">
               <div className="checkout__btns">
-                {/* <button className="btn btn--rounded btn--yellow">Log in</button>
-                <button className="btn btn--rounded btn--border">
-                  Sign up
-                </button> */}
               </div>
 
               <div className="block">
                 <h3 className="block__title">Shipping information</h3>
                 <form className="form">
+                  {/* Shipping information form */}
                   <div className="form__input-row form__input-row--two">
                     <div className="form__col">
                       <input
@@ -118,6 +123,7 @@ const CheckoutPage = () => {
             <div className="checkout__col-4">
               <div className="block">
                 <h3 className="block__title">Payment method</h3>
+                {/* List of payment methods */}
                 <ul className="round-options round-options--three">
                   <li className="round-item">
                     <img src="/images/logos/paypal.png" alt="Paypal" />
@@ -142,6 +148,7 @@ const CheckoutPage = () => {
 
               <div className="block">
                 <h3 className="block__title">Delivery method</h3>
+                {/* List of delivery options */}
                 <ul className="round-options round-options--two">
                   <li className="round-item round-item--bg">
                     <img src="/images/logos/inpost.svg" alt="Paypal" />
@@ -166,10 +173,12 @@ const CheckoutPage = () => {
             <div className="checkout__col-2">
               <div className="block">
                 <h3 className="block__title">Your cart</h3>
+                {/* Display cart items and summary */}
                 <CheckoutItems />
 
                 <div className="checkout-total">
                   <p>Total cost</p>
+                  {/* Display total cost of items in the cart */}
                   <h3>${priceTotal.toFixed(2)}</h3>
                 </div>
               </div>
@@ -177,15 +186,14 @@ const CheckoutPage = () => {
           </div>
 
           <div className="cart-actions cart-actions--checkout">
+            {/* Back and Proceed to payment buttons */}
             <Link href="/cart">
               <a className="cart__btn-back">
                 <i className="icon-left"></i> Back
               </a>
             </Link>
             <div className="cart-actions__items-wrapper">
-              {/* <button type="button" className="btn btn--rounded btn--border">
-                Continue shopping
-              </button> */}
+              {/* TODO: Continue shopping button */}
               <button type="button" className="btn btn--rounded btn--yellow">
                 Proceed to payment
               </button>

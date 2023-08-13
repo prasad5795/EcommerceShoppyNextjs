@@ -1,11 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 /**
- * For generating login tokens for further use
- * @param length 
- * @returns random token
+ * Generates a random token of specified length.
+ *
+ * @param {number} length - The length of the token to generate.
+ * @returns {string} A random token.
  */
-function makeToken(length = 10) {
+function makeToken(length = 10): string {
   let result = '';
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const charactersLength = characters.length;
@@ -17,26 +18,33 @@ function makeToken(length = 10) {
   return result;
 }
 
-
-/** 
-  * here are some white listed email for logging in and password is kept common just for demo, 
-  * can be integrated with DB as well
-*/ 
-const whiteListedEmails = [
-  'johndoe@mail.com',
-  'johndoe2@mail.com'
-]
-
+/**
+ * Handles user login and token generation for white-listed email addresses.
+ *
+ * @param {NextApiRequest} req - The Next.js API request object.
+ * @param {NextApiResponse} res - The Next.js API response object.
+ */
 export default (req: NextApiRequest, res: NextApiResponse) => {
   const request = req.body;
   const email = request.email;
   const password = request.password;
 
-  if(whiteListedEmails.includes(email) && password === 'ecommerce') {
-    // generate token of random string
+  // Check if the provided email and password match white-listed values
+  if (whiteListedEmails.includes(email) && password === 'ecommerce') {
+    // Generate a token of random string
     const token = makeToken();
-    res.status(200).json({ token, email, expireIn: new Date().valueOf() + 24*60*60*1000, errMsg:'' });
+    // Respond with success status and generated token
+    res.status(200).json({ token, email, expireIn: new Date().valueOf() + 24 * 60 * 60 * 1000, errMsg: '' });
   } else {
+    // Respond with unauthorized status and error message
     res.status(401).json({ errMsg: 'Incorrect Email or Password' });
   }
-}
+};
+
+/** 
+ * An array of white-listed email addresses for login.
+ */
+const whiteListedEmails = [
+  'johndoe@mail.com',
+  'johndoe2@mail.com'
+];

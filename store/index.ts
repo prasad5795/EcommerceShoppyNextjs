@@ -7,48 +7,56 @@ import {
   persistReducer,
 } from 'redux-persist'
 
-//COMBINING ALL REDUCERS
+// Combine all reducers
 const reducer = {
   cart: cartReducer,
 }
 
+// Create a root reducer by combining all reducers
 const rootReducer = combineReducers({
   cart: cartReducer,
 })
 
+// Create a Redux store with the initial reducer
 let store = configureStore({ 
   reducer,
 });
 
-const makeStore = ({ isServer }: { isServer: Boolean }) => {
+// Define a function to create the Redux store
+const makeStore = ({ isServer }: { isServer: boolean }) => {
   if (isServer) {
-    //If it's on server side, create a store
+    // If it's on the server side, create a store without persisting state
     return store = configureStore({ 
       reducer,
     });
   } else {
-    //If it's on client side, create a store which will persist
+    // If it's on the client side, create a store with state persistence
     const persistConfig = {
       key: "shoppingcart",
-      whitelist: ["cart"], // only counter will be persisted, add other reducers if needed
-      storage, // if needed, use a safer storage
+      whitelist: ["cart"], // Only 'cart' will be persisted, add other reducers if needed
+      storage, // Use a storage mechanism (e.g., localStorage) for persisting state
     };
 
-    const persistedReducer = persistReducer(persistConfig, rootReducer); // Create a new reducer with our existing reducer
+    // Create a new reducer with state persistence
+    const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+    // Create the Redux store with the persisted reducer
     store = configureStore({ 
       reducer: persistedReducer,
-    }); // Creating the store again
+    });
 
+    // Attach the persistor object to the store for managing state persistence
     // @ts-ignore:next-line
-    store.__persistor = persistStore(store); // This creates a persistor object & push that persisted object to .__persistor, so that we can avail the persistability feature
+    store.__persistor = persistStore(store);
 
     return store;
   }
 };
 
-// export an assembled wrapper
+// Create a Redux store wrapper using the provided makeStore function
 // @ts-ignore:next-line
-export const wrapper = createWrapper(makeStore, {debug: true});
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export const wrapper = createWrapper(makeStore, { debug: true });
+
+// Define types for RootState and AppDispatch using the store
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
