@@ -49,15 +49,13 @@ const Header = ({ isErrorPage }: HeaderProps) => {
     window.onscroll = function () {
       headerClass();
     };
-    setIsUserLoggedIn(
-      typeof window !== 'undefined' &&
-        sessionStorage &&
-        Boolean(sessionStorage.getItem('auth_token'))
-    );
   }, []);
 
   useEffect(() => {
     const auth_token = sessionStorage.getItem('auth_token');
+    setIsUserLoggedIn(
+      typeof window !== 'undefined' && sessionStorage && Boolean(auth_token)
+    );
     if (!auth_token) {
       router.push('/login');
     }
