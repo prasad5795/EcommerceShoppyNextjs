@@ -31,15 +31,10 @@ export async function postData(url = '', data = {}) {
       referrerPolicy: 'no-referrer',
       body: JSON.stringify(data),
     });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
     const res = await response.json();
     return { res, status: response.status };
   } catch (error: any) {
-    throw new Error(`Failed to perform POST request: ${error.message}`);
+    return { status: 400, res: { errMsg: 'Something went wrong', error } };
   }
 }
 
